@@ -146,7 +146,8 @@ class TransformersPresetLoader(PresetLoader):
         return backbone
 
     def load_task(self, cls, load_weights, load_task_weights, **kwargs):
-        architecture = self.config["architectures"][0]
+        architectures = self.config.get("architectures") or []
+        architecture = architectures[0] if architectures else ""
         is_classifier = issubclass(cls, ImageClassifier)
         is_assistant = architecture == "Gemma4AssistantForCausalLM"
 
